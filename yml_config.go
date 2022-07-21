@@ -132,8 +132,8 @@ func (y *ymlLoader) Clone(fileName string) YmlConfig {
 	var ymlC = *y
 	var ymlConfViper = *(y.viper)
 	(&ymlC).viper = &ymlConfViper
-
 	(&ymlC).viper.SetConfigName(fileName)
+	(&ymlC).c = CreateContainer(fileName)
 	if err := (&ymlC).viper.ReadInConfig(); err != nil {
 		log.Sugar().Fatalf("配置文件Clone失败：%v", zap.Error(err))
 	}
