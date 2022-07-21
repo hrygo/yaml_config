@@ -1,4 +1,4 @@
-module yaml_config
+module github.com/aaronwong1989/yaml_config
 
 go 1.18
 
