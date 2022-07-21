@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/zap"
 
-	"yaml_config"
+	"github.com/aaronwong1989/yaml_config"
 )
 
 func init() {

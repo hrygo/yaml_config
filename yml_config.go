@@ -243,9 +243,6 @@ func (y *ymlLoader) GetStringSlice(keyName string) []string {
 var basePath string
 
 func BasePath(project string) string {
-	if basePath != "" {
-		return basePath
-	}
 	if curPath, err := os.Getwd(); err == nil {
 		// 路径进行处理，兼容单元测试程序程序启动时的奇怪路径
 		pl, cl := len(project), len(curPath)
