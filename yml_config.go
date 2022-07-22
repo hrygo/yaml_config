@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/fsnotify/fsnotify"
+	"github.com/hrygo/log"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 )
@@ -65,7 +66,7 @@ func CreateYamlFactory(relativePath string, fileName string, project string) Yml
 	yamlConfig.SetConfigType("yaml")
 
 	if err := yamlConfig.ReadInConfig(); err != nil {
-		log.Sugar().Fatalf("Config file init error：%v", err.Error())
+		log.Fatalf("Config file init error：%v", err.Error())
 	}
 	v := CreateContainer(prefix)
 
@@ -89,7 +90,7 @@ func (y *ymlLoader) ConfigFileChangeListen() {
 			if changeEvent.Op.String() == "WRITE" {
 				y.clearCache()
 				lastChangeTime = time.Now()
-				log.Sugar().Warnf("[YAML] Config file changed, reload!")
+				log.Warnf("[YAML] Config file changed, reload!")
 			}
 		}
 	})
@@ -135,7 +136,7 @@ func (y *ymlLoader) Clone(fileName string) YmlConfig {
 	(&ymlC).viper.SetConfigName(fileName)
 	(&ymlC).c = CreateContainer(fileName)
 	if err := (&ymlC).viper.ReadInConfig(); err != nil {
-		log.Sugar().Fatalf("配置文件Clone失败：%v", zap.Error(err))
+		log.Fatalf("配置文件Clone失败：%v", zap.Error(err))
 	}
 	return &ymlC
 }
@@ -256,7 +257,7 @@ func BasePath(project string) string {
 		}
 		return basePath + "/"
 	} else {
-		log.Sugar().Fatalf("Running directory has no permission!")
+		log.Fatalf("Running directory has no permission!")
 	}
 	return ""
 }

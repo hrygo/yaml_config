@@ -4,15 +4,9 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"go.uber.org/zap"
 
-	"github.com/aaronwong1989/yaml_config"
+	"github.com/hrygo/yaml_config"
 )
-
-func init() {
-	log, _ := zap.NewDevelopment()
-	yaml_config.SetLogger(log)
-}
 
 func TestConfig1(t *testing.T) {
 	yc := yaml_config.CreateYamlFactory("", "test.yaml", "yaml_config")

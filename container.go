@@ -4,19 +4,11 @@ import (
 	"strings"
 	"sync"
 
-	"go.uber.org/zap"
+	"github.com/hrygo/log"
 )
 
 // 定义一个全局键值对存储容器
 var sMap sync.Map
-
-// 需外部调用方将其初始化
-var log *zap.Logger
-
-// SetLogger 必须执行此操作设置logger
-func SetLogger(l *zap.Logger) {
-	log = l
-}
 
 // CreateContainer 创建一个容器工厂
 func CreateContainer(prefix string) *containers {
@@ -37,7 +29,7 @@ func (c *containers) Set(key string, value interface{}) (res bool) {
 		sMap.Store(key, value)
 		res = true
 	} else {
-		log.Sugar().Infof("key to set is exists：%s" + key)
+		log.Infof("key to set is exists：%s" + key)
 	}
 	return
 }
