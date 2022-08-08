@@ -72,16 +72,22 @@ func CreateYamlFactory(relativePath string, fileName string, project string) Yml
 	v := CreateContainer(prefix)
 
 	return &ymlLoader{
-		viper: yamlConfig,
-		mu:    new(sync.Mutex),
-		c:     v,
+		viper:    yamlConfig,
+		mu:       new(sync.Mutex),
+		c:        v,
+		basePath: basePath,
 	}
 }
 
 type ymlLoader struct {
-	viper *viper.Viper
-	mu    *sync.Mutex
-	c     *containers
+	viper    *viper.Viper
+	mu       *sync.Mutex
+	c        *containers
+	basePath string // 基础路径
+}
+
+func (y *ymlLoader) BasePath() string {
+	return y.basePath
 }
 
 func (y *ymlLoader) Viper() *viper.Viper {
@@ -260,7 +266,7 @@ func BasePath(project string) string {
 		} else {
 			basePath = curPath
 		}
-		return basePath + "/"
+		return basePath + string(os.PathSeparator)
 	} else {
 		log.Fatal("Running directory has no permission!")
 	}
