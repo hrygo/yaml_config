@@ -32,6 +32,7 @@ type YmlConfig interface {
 	GetDuration(keyName string) time.Duration
 	GetStringSlice(keyName string) []string
 	Viper() *viper.Viper
+	BasePath() string
 }
 
 func init() {
