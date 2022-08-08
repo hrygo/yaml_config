@@ -48,13 +48,14 @@ func CreateYamlFactory(relativePath string, fileName string, project string) Yml
 	yamlConfig := viper.New()
 	// 配置文件所在目录
 	var basePath = BasePath(project)
+	var absPath = basePath
 	if len(relativePath) > 0 && "." != relativePath && "./" != relativePath {
 		if strings.HasPrefix(relativePath, "./") {
 			relativePath = fileName[1:]
 		}
-		basePath += relativePath
+		absPath += relativePath
 	}
-	yamlConfig.AddConfigPath(basePath)
+	yamlConfig.AddConfigPath(absPath)
 	var prefix string
 	// 需要读取的文件名,默认为：config
 	if len(fileName) == 0 {
